@@ -1,1 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScanSplit - Download</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
+        body {
+            background: linear-gradient(135deg, #0f172a, #020617);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 42px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #38bdf8, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            margin-top: 10px;
+            color: #cbd5f5;
+            font-size: 18px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .card h2 {
+            color: #38bdf8;
+            margin-bottom: 15px;
+            font-size: 26px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #6366f1, #38bdf8);
+            transition: 0.3s ease;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.5);
+        }
+
+        .steps {
+            margin-top: 15px;
+            padding-left: 20px;
+            line-height: 1.8;
+            color: #e2e8f0;
+        }
+
+        .highlight {
+            color: #38bdf8;
+            font-weight: 600;
+        }
+
+        .note {
+            margin-top: 15px;
+            padding: 15px;
+            border-left: 4px solid #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 8px;
+            color: #cbd5f5;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        footer a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 32px;
+            }
+
+            .download-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <div class="logo">ScanSplit</div>
+        <div class="tagline">Fast & Smart File Scanning and Splitting Tool</div>
+    </header>
+
+    <div class="card">
+        <h2>⬇️ Download ScanSplit</h2>
+        <p>Get the latest version of <span class="highlight">ScanSplit</span> directly from our official GitHub release page.</p>
+        
+        <!-- Replace the link below with your GitHub Release link -->
+        <a href="https://github.com/YOUR-USERNAME/YOUR-REPO/releases" class="download-btn" target="_blank">
+            Download Latest Version
+        </a>
+
+        <div class="note">
+            Note: Always download from the official GitHub release to ensure security and latest updates.
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📱 Installation Instructions (Android APK)</h2>
+        <ol class="steps">
+            <li>Click on the <span class="highlight">Download Latest Version</span> button.</li>
+            <li>You will be redirected to the GitHub Release page.</li>
+            <li>Download the <span class="highlight">.apk</span> file from Assets section.</li>
+            <li>Open the downloaded APK file on your device.</li>
+            <li>If prompted, enable <span class="highlight">Install from Unknown Sources</span>.</li>
+            <li>Tap Install and wait for the installation to complete.</li>
+            <li>Open ScanSplit and start using the app.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h2>💻 Installation Instructions (PC)</h2>
+        <ol class="steps">
+            <li>Click the download button to open the GitHub Release page.</li>
+            <li>Download the setup file (.exe or .zip).</li>
+            <li>Extract the file if it is in ZIP format.</li>
+            <li>Run the setup or executable file.</li>
+            <li>Follow on-screen instructions to complete installation.</li>
+            <li>Launch ScanSplit from your desktop or start menu.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h2>🛠️ System Requirements</h2>
+        <ul class="steps">
+            <li>Android 7.0 or above (for APK)</li>
+            <li>Windows 10/11 (for PC version)</li>
+            <li>Minimum 2GB RAM recommended</li>
+            <li>Internet connection for updates</li>
+        </ul>
+    </div>
+
+    <footer>
+        Crafted by <a href="https://nirmalwebworks.in" target="_blank">Nirmal WebWorks</a> inside nirmalwebwork.in
+    </footer>
+
+</div>
+
+</body>
+</html>
