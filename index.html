@@ -1,199 +1,959 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScanSplit - Download</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScanSplit — Download</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="ScanSplit — Scan & Split UPI Payments Instantly" />
+    <meta name="description"
+        content="ScanSplit reads your UPI payment screenshots with ML-powered text recognition and splits bills effortlessly. Download the free Android app now." />
+    <meta name="keywords"
+        content="ScanSplit, UPI, bill split, split expenses, scan payment, ML Kit, Android app, settle bills, splitwise alternative" />
+    <meta name="author" content="Nirmal WebWorks" />
+    <meta name="theme-color" content="#0B0D17" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://github.com/AKing-283/ScanSplit" />
+    <meta property="og:title" content="ScanSplit — Scan & Split UPI Payments Instantly" />
+    <meta property="og:description"
+        content="ScanSplit reads your UPI payment screenshots with ML-powered text recognition and splits bills effortlessly. Download the free Android app now." />
+    <meta property="og:image" content="./assets/images/icon.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://github.com/AKing-283/ScanSplit" />
+    <meta property="twitter:title" content="ScanSplit — Scan & Split UPI Payments Instantly" />
+    <meta property="twitter:description"
+        content="ScanSplit reads your UPI payment screenshots with ML-powered text recognition and splits bills effortlessly. Download the free Android app now." />
+    <meta property="twitter:image" content="./assets/images/icon.png" />
+
+    <link rel="icon" href="./assets/images/icon.png" type="image/png" />
+    <link rel="canonical" href="https://github.com/AKing-283/ScanSplit" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
     <style>
-        * {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --bg-primary: #0B0D17;
+            --bg-secondary: #111427;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --border-card: rgba(255, 255, 255, 0.08);
+            --accent: #6C63FF;
+            --accent-light: #8B83FF;
+            --accent-glow: rgba(108, 99, 255, 0.35);
+            --green: #00D68F;
+            --green-glow: rgba(0, 214, 143, 0.3);
+            --text-primary: #F0F0F5;
+            --text-secondary: #9699AA;
+            --text-muted: #5D6077;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a, #020617);
-            color: #fff;
+            font-family: var(--font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
 
+        /* ── Animated Background ── */
+        .bg-glow {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-glow .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: orbFloat 12s ease-in-out infinite alternate;
+        }
+
+        .bg-glow .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            top: -10%;
+            left: -10%;
+            animation-duration: 14s;
+        }
+
+        .bg-glow .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--green);
+            bottom: -15%;
+            right: -10%;
+            animation-duration: 10s;
+            animation-delay: -5s;
+        }
+
+        .bg-glow .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: #FF6B8A;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 16s;
+            animation-delay: -3s;
+            opacity: 0.2;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(60px, 40px) scale(1.15);
+            }
+        }
+
+        /* ── Layout ── */
         .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
+        /* ── Navbar ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 13, 23, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-card);
+            padding: 16px 0;
         }
 
-        .logo {
-            font-size: 42px;
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+        }
+
+        .nav-logo span {
+            font-size: 1.25rem;
             font-weight: 700;
-            background: linear-gradient(90deg, #38bdf8, #6366f1);
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* ── Hero ── */
+        .hero {
+            text-align: center;
+            padding: 40px 0 60px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 999px;
+            padding: 6px 18px;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+            font-weight: 600;
+            margin-bottom: 28px;
+            animation: fadeUp .6s ease-out;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            animation: fadeUp .6s ease-out .1s both;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent-light), var(--green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .tagline {
-            margin-top: 10px;
-            color: #cbd5f5;
-            font-size: 18px;
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto 40px;
+            animation: fadeUp .6s ease-out .2s both;
         }
 
-        .card {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 18px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .card h2 {
-            color: #38bdf8;
-            margin-bottom: 15px;
-            font-size: 26px;
+        /* ── Download Button ── */
+        .download-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            animation: fadeUp .6s ease-out .3s both;
         }
 
-        .download-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: 600;
-            color: white;
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--accent), #8B6CFF);
+            color: #fff;
+            font-family: var(--font);
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
             text-decoration: none;
-            border-radius: 12px;
-            background: linear-gradient(90deg, #6366f1, #38bdf8);
-            transition: 0.3s ease;
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 40px var(--accent-glow), 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .download-btn:hover {
+        .btn-download::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn-download:hover {
             transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.5);
+            box-shadow: 0 0 60px var(--accent-glow), 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-download:hover::before {
+            opacity: 1;
+        }
+
+        .btn-download:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .btn-download svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .download-meta {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .download-meta span {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ── Features ── */
+        .features {
+            padding: 80px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 48px;
+            letter-spacing: -0.02em;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(108, 99, 255, 0.25);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-icon.purple {
+            background: rgba(108, 99, 255, 0.15);
+        }
+
+        .feature-icon.green {
+            background: rgba(0, 214, 143, 0.15);
+        }
+
+        .feature-icon.pink {
+            background: rgba(255, 107, 138, 0.15);
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* ── Install Guide ── */
+        .install {
+            padding: 80px 0;
+        }
+
+        .install h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 48px;
+            letter-spacing: -0.02em;
         }
 
         .steps {
-            margin-top: 15px;
-            padding-left: 20px;
-            line-height: 1.8;
-            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 640px;
+            margin: 0 auto;
         }
 
-        .highlight {
-            color: #38bdf8;
-            font-weight: 600;
+        .step {
+            display: flex;
+            gap: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        .note {
-            margin-top: 15px;
-            padding: 15px;
-            border-left: 4px solid #38bdf8;
-            background: rgba(56, 189, 248, 0.1);
-            border-radius: 8px;
-            color: #cbd5f5;
+        .step:hover {
+            transform: translateX(6px);
+            border-color: rgba(108, 99, 255, 0.2);
         }
 
-        footer {
+        .step-number {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.1rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        .step-content code {
+            background: rgba(108, 99, 255, 0.12);
+            color: var(--accent-light);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+        }
+
+        /* ── Permissions ── */
+        .permissions {
+            padding: 40px 0 80px;
+        }
+
+        .perm-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius);
+            padding: 32px;
+            max-width: 640px;
+            margin: 0 auto;
             text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(148, 163, 184, 0.2);
-            color: #94a3b8;
-            font-size: 15px;
+        }
+
+        .perm-box h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .perm-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .perm-list li {
+            background: rgba(0, 214, 143, 0.08);
+            border: 1px solid rgba(0, 214, 143, 0.15);
+            color: var(--green);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 999px;
+        }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--border-card);
+            text-align: center;
+            padding: 32px 0;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
 
         footer a {
-            color: #38bdf8;
+            color: var(--accent-light);
             text-decoration: none;
-            font-weight: 600;
         }
 
         footer a:hover {
             text-decoration: underline;
         }
 
-        @media (max-width: 600px) {
-            .logo {
-                font-size: 32px;
+        /* ── Mobile ── */
+        @media (max-width: 640px) {
+            .hero {
+                padding: 60px 0 40px;
             }
 
-            .download-btn {
-                width: 100%;
-                text-align: center;
+            .nav-links {
+                display: none;
             }
+
+            .btn-download {
+                padding: 16px 32px;
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        /* ── Modal ── */
+        .modal {
+            border: none;
+            border-radius: var(--radius);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            margin: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-card);
+        }
+
+        .modal::backdrop {
+            background: rgba(11, 13, 23, 0.85);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -16px;
+            right: -16px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .modal h3 {
+            font-size: 1.4rem;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(108, 99, 255, 0.3);
+        }
+
+        .contact-card .icon {
+            font-size: 1.5rem;
+            background: rgba(108, 99, 255, 0.1);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ── Download Instructions Modal ── */
+        .download-instructions {
+            margin-top: 16px;
+        }
+
+        .download-instructions p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .warning-box {
+            background: rgba(255, 171, 0, 0.1);
+            border: 1px solid rgba(255, 171, 0, 0.3);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .warning-box strong {
+            color: #FFAB00;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .warning-box p {
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .btn-confirm-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--green), #00B87A);
+            color: #fff;
+            font-family: var(--font);
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 16px 24px;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-confirm-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 214, 143, 0.3);
+        }
+
+        .btn-confirm-download svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .contact-card .icon {
+            font-size: 1.5rem;
+            background: rgba(108, 99, 255, 0.1);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
+    <!-- Background Glow -->
+    <div class="bg-glow" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
 
-    <header>
-        <div class="logo">ScanSplit</div>
-        <div class="tagline">Fast & Smart File Scanning and Splitting Tool</div>
-    </header>
-
-    <div class="card">
-        <h2>⬇️ Download ScanSplit</h2>
-        <p>Get the latest version of <span class="highlight">ScanSplit</span> directly from our official GitHub release page.</p>
-        
-        <!-- Replace the link below with your GitHub Release link -->
-        <a href="https://github.com/YOUR-USERNAME/YOUR-REPO/releases" class="download-btn" target="_blank">
-            Download Latest Version
-        </a>
-
-        <div class="note">
-            Note: Always download from the official GitHub release to ensure security and latest updates.
+    <!-- Navbar -->
+    <nav>
+        <div class="container">
+            <a href="#" class="nav-logo">
+                <img src="./assets/images/icon.png" alt="ScanSplit Logo" />
+                <span>ScanSplit</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#install">Install Guide</a></li>
+                <li><a href="#" onclick="document.getElementById('contactModal').showModal(); return false;">Contact</a>
+                </li>
+            </ul>
         </div>
-    </div>
+    </nav>
 
-    <div class="card">
-        <h2>📱 Installation Instructions (Android APK)</h2>
-        <ol class="steps">
-            <li>Click on the <span class="highlight">Download Latest Version</span> button.</li>
-            <li>You will be redirected to the GitHub Release page.</li>
-            <li>Download the <span class="highlight">.apk</span> file from Assets section.</li>
-            <li>Open the downloaded APK file on your device.</li>
-            <li>If prompted, enable <span class="highlight">Install from Unknown Sources</span>.</li>
-            <li>Tap Install and wait for the installation to complete.</li>
-            <li>Open ScanSplit and start using the app.</li>
-        </ol>
-    </div>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Version 1.0.0 — Android
+            </div>
+            <h1>
+                Scan. Split.<br />
+                <span class="gradient-text">Settle Instantly.</span>
+            </h1>
+            <p>
+                ScanSplit reads your UPI payment screenshots with ML-powered text recognition and splits bills
+                effortlessly among friends — no manual entry needed.
+            </p>
 
-    <div class="card">
-        <h2>💻 Installation Instructions (PC)</h2>
-        <ol class="steps">
-            <li>Click the download button to open the GitHub Release page.</li>
-            <li>Download the setup file (.exe or .zip).</li>
-            <li>Extract the file if it is in ZIP format.</li>
-            <li>Run the setup or executable file.</li>
-            <li>Follow on-screen instructions to complete installation.</li>
-            <li>Launch ScanSplit from your desktop or start menu.</li>
-        </ol>
-    </div>
+            <div class="download-wrap">
+                <a id="downloadBtn" href="#"
+                    onclick="document.getElementById('downloadModal').showModal(); return false;" class="btn-download">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                    </svg>
+                    Download APK
+                </a>
+                <p class="download-meta">
+                    For <span>Android 8.0+</span> &bull; Free &bull; ~25 MB
+                </p>
+            </div>
+        </div>
+    </section>
 
-    <div class="card">
-        <h2>🛠️ System Requirements</h2>
-        <ul class="steps">
-            <li>Android 7.0 or above (for APK)</li>
-            <li>Windows 10/11 (for PC version)</li>
-            <li>Minimum 2GB RAM recommended</li>
-            <li>Internet connection for updates</li>
-        </ul>
-    </div>
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Why ScanSplit?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon purple">📸</div>
+                    <h3>Scan UPI Screenshots</h3>
+                    <p>Point your camera or pick a screenshot — ML Kit instantly extracts payment details from any UPI
+                        app.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">💸</div>
+                    <h3>Smart Bill Splitting</h3>
+                    <p>Automatically calculate each person's share. Supports equal splits, custom amounts, and
+                        percentages.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon pink">🔒</div>
+                    <h3>Secure & Private</h3>
+                    <p>Your data stays on your device. Google Sign-In and Firebase Auth keep your account safe.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon purple">📊</div>
+                    <h3>Expense Tracking</h3>
+                    <p>Beautiful charts and history so you always know who owes what across all your splits.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon green">🔔</div>
+                    <h3>Smart Reminders</h3>
+                    <p>Get notified about pending settlements. Gently remind friends to pay up.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon pink">🌙</div>
+                    <h3>Beautiful Dark UI</h3>
+                    <p>A gorgeous dark-themed interface that's easy on the eyes and a joy to use.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Install Guide -->
+    <section class="install" id="install">
+        <div class="container">
+            <h2>How to Install</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Download the APK</h3>
+                        <p>Tap the <strong>Download APK</strong> button above. The file <code>ScanSplit.apk</code> will
+                            be saved to your Downloads folder.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Allow Unknown Sources</h3>
+                        <p>When prompted, go to <strong>Settings → Install Unknown Apps</strong> and enable it for your
+                            browser (Chrome, Firefox, etc.).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Install the App</h3>
+                        <p>Open the downloaded <code>ScanSplit.apk</code> file and tap <strong>Install</strong>. Android
+                            may show a Play Protect warning — tap <strong>"Install Anyway"</strong>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Sign In & Start Scanning</h3>
+                        <p>Open ScanSplit, sign in with your Google account, and start scanning your first UPI
+                            screenshot!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Permissions Info -->
+    <section class="permissions">
+        <div class="container">
+            <div class="perm-box">
+                <h3>🛡️ App Permissions</h3>
+                <ul class="perm-list">
+                    <li>📷 Camera Access</li>
+                    <li>🖼️ Photo Library</li>
+                    <li>🔔 Notifications</li>
+                    <li>🎙️ Microphone</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        Crafted by <a href="https://nirmalwebworks.in" target="_blank">Nirmal WebWorks</a> inside nirmalwebwork.in
+        <div class="container">
+            <p>
+                &copy; 2026 ScanSplit &bull;
+                Crafted by <a href="https://nirmalwebworks.web.app" target="_blank">Nirmal WebWorks</a>
+            </p>
+        </div>
     </footer>
 
-</div>
+    <!-- Contact Modal -->
+    <dialog id="contactModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Close modal"
+                onclick="document.getElementById('contactModal').close()">&times;</button>
+            <h3>Get in Touch</h3>
+            <div class="contact-methods">
+                <a href="tel:7050875950" class="contact-card">
+                    <span class="icon">📞</span>
+                    <div>
+                        <strong>Phone</strong>
+                        <p>7050875950</p>
+                    </div>
+                </a>
+                <a href="mailto:nirmalwebworks@gmail.com" class="contact-card">
+                    <span class="icon">✉️</span>
+                    <div>
+                        <strong>Email</strong>
+                        <p>nirmalwebworks@gmail.com</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Download Instructions Modal -->
+    <dialog id="downloadModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" aria-label="Close modal"
+                onclick="document.getElementById('downloadModal').close()">&times;</button>
+            <h3>Installation Guide</h3>
+            <div class="download-instructions">
+                <p>Since ScanSplit is not on the Play Store yet, your phone might warn you about installing an unknown
+                    app.</p>
+
+                <div class="warning-box">
+                    <strong>⚠️ Google Play Protect</strong>
+                    <p>If you see a "Unsafe app blocked" popup from Play Protect, tap on <b>"More details"</b> and then
+                        select <b>"Install anyway"</b>.</p>
+                </div>
+
+                <a href="https://github.com/AKing-283/ScanSplit/releases/latest/download/ScanSplit.apk"
+                    class="btn-confirm-download" onclick="document.getElementById('downloadModal').close()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                    </svg>
+                    Download & Install Anyway
+                </a>
+            </div>
+        </div>
+    </dialog>
 
 </body>
+
 </html>
