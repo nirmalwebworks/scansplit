@@ -604,6 +604,11 @@
         .modal::backdrop {
             background: rgba(11, 13, 23, 0.85);
             backdrop-filter: blur(8px);
+            transition: opacity 0.2s;
+        }
+
+        dialog:not([open])::backdrop {
+            opacity: 0;
         }
 
         .modal-content {
@@ -959,15 +964,34 @@
                 </div>
 
                 <a href="https://github.com/nirmalwebworks/ScanSplit/releases/latest/download/ScanSplit.apk"
-                    class="btn-confirm-download" onclick="document.getElementById('downloadModal').close()">
+                    class="btn-confirm-download"
+                    onclick="var m=document.getElementById('downloadModal'); m.close(); return true;">
                     <svg viewBox="0 0 24 24">
                         <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                     </svg>
-                    Download & Install
+                    Download &amp; Install
                 </a>
             </div>
         </div>
     </dialog>
+
+    <script>
+        // On bfcache restore (returning from APK download page), force a repaint
+        // so any stale backdrop / fixed-layer artifact is cleared.
+        window.addEventListener('pageshow', function (e) {
+            if (e.persisted) {
+                // Close any open dialogs that may have stale backdrops
+                document.querySelectorAll('dialog[open]').forEach(function (d) { d.close(); });
+                // Force repaint of the fixed bg-glow layer
+                var glow = document.querySelector('.bg-glow');
+                if (glow) {
+                    glow.style.display = 'none';
+                    void glow.offsetHeight; // reflow
+                    glow.style.display = '';
+                }
+            }
+        });
+    </script>
 
 </body>
 
