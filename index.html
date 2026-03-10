@@ -67,6 +67,8 @@
         html {
             scroll-behavior: smooth;
             background-color: var(--bg-primary);
+            overflow-x: hidden;
+            overscroll-behavior: none;
         }
 
         body {
@@ -75,7 +77,6 @@
             color: var(--text-primary);
             min-height: 100vh;
             min-height: 100dvh;
-            overflow-x: hidden;
             line-height: 1.6;
         }
 
@@ -89,6 +90,8 @@
             z-index: 0;
             pointer-events: none;
             overflow: hidden;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .bg-glow .orb {
